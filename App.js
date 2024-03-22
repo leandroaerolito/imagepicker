@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 /* Importando os recursos da API nativa/móvel */
 import * as ImagePicker from "expo-image-picker";
 import * as MediaLibrary from "expo-media-library";
+import * as Sharing from "expo-sharing";
 
 export default function App() {
   /* State tradicional para armazenar a referência da foto (quando existir) */
@@ -60,6 +61,11 @@ export default function App() {
     }
   };
 
+  const shareFoto = async () => {
+    Sharing.isAvailableAsync();
+    Sharing.shareAsync(foto);
+  };
+
   return (
     <>
       <StatusBar />
@@ -67,6 +73,8 @@ export default function App() {
         <Button onPress={escolherFoto} title="Escolher foto" />
         <Button onPress={acessarCamera} title="Tirar uma nova foto" />
         {/* Ao executaR esta função quando o usurário escolhe tirar uma foto, utilizamos o launchCameraAsync para abrir a câmera do sistema operacional */}
+
+        <Button onPress={shareFoto} title="Compartilhar foto" />
 
         {foto ? (
           <Image source={{ uri: foto }} style={{ width: 300, height: 300 }} />
