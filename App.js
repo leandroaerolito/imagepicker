@@ -13,6 +13,21 @@ export default function App() {
 
   console.log(status);
 
+  /* Ao entrar no app, será executada a verificação de permissões de uso */
+  useEffect(() => {
+    /* Esta função mostrará um popup para o usuário perguntando
+    se ele autoriza a utilização do recurso móvel (no caso, selecionar/tirar foto). */
+    async function verificaPermissoes() {
+      const cameraStatus = await ImagePicker.requestCameraPermissionsAsync();
+
+      /* Ele dando autorização (granted), isso será armazenado
+      no state de requestPermission. */
+      requestPermission(cameraStatus === "granted");
+    }
+
+    verificaPermissoes();
+  }, []);
+
   return (
     <>
       <StatusBar />
